@@ -1,0 +1,56 @@
+/* Describes the Header and Animation for Sliding In */
+.game-header {
+    font-family: 'Osawld', sans-serif, 'Times New Roman';
+    background-color: forestgreen;
+    color: rgb(197, 179, 88);
+    text-align: center;
+
+    /* Starts Header off screen */
+    transform: traslateY()
+    opacity: 0;
+
+    /* Gives Header a Glow */
+    text-shadow: 
+    0 0 15px #FFD700, 
+    0 0 30px rgba(255, 215, 0, 0.7),
+    0 0 45px rgba(255, 255, 255, 0.5);
+
+    /* Animation Details */
+    animation: slideInFromTop 1s ease-out 0.5s fowards;
+}
+    /* Keyframe describing Animation at Start and Finish */
+    @keyframes SlideInFromTop {
+        0% {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+/* Describes Buttons Container - Uses Flexbox to Center and Give a Gap */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+/* Desribes the Buttons and Uses Flex-Grow To Ensure that They Share Space */
+.button-container button {
+    flex-grow: 1;
+    padding: 15px 10px;
+    font-style: italic;
+    font-family: 'Oswald', sans-serif, 'Times New Roman';
+    transition: box-shadow 0.3s ease-in-out;
+    color: white;
+    background-color: forestgreen;
+}
+
+/* Gives the Button a Glow When Hovered Over */
+.button-container button:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+}
