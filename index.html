@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Hit Line</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Role selection -->
+<input type="radio" name="role" id="role-player">
+<input type="radio" name="role" id="role-dealer">
+
+<!-- Scene progression toggles -->
+<input type="checkbox" id="shuffle-next-player">
+<input type="checkbox" id="dealing-next-player">
+<input type="radio" name="decision-player" id="decision-hit-player">
+<input type="radio" name="decision-player" id="decision-stand-player">
+<input type="checkbox" id="result-next-player-hit">
+<input type="checkbox" id="result-next-player-stand">
+
+<input type="checkbox" id="shuffle-next-dealer">
+<input type="checkbox" id="dealing-next-dealer">
+<input type="radio" name="decision-dealer" id="decision-hit-dealer">
+<input type="radio" name="decision-dealer" id="decision-stand-dealer">
+<input type="checkbox" id="result-next-dealer-hit">
+<input type="checkbox" id="result-next-dealer-stand">
+
+<div class="game-container">
+
+<!-- SCENE 1: INTRO -->
+<div class="scene" id="scene-intro">
+  <h1 class="title">The Hit Line</h1>
+  <div class="role-selection">
+    <label for="role-player" class="role-label">Play as Player</label>
+    <label for="role-dealer" class="role-label">Play as Dealer</label>
+  </div>
+</div>
+
+<!-- SCENE 2: SHUFFLE -->
+<div class="scene" id="scene-shuffling-player">
+  <div class="narrator-box">Shuffling the deck...</div>
+  <div class="table">
+    <div class="deck-area">
+      <div class="shuffle-card card-back"></div>
+      <div class="shuffle-card card-back"></div>
+      <div class="shuffle-card card-back"></div>
+      <div class="shuffle-card card-back"></div>
+      <div class="shuffle-card card-back"></div>
+      <div class="burn-card"></div>
+    </div>
+    <div class="chips-area">
+      <div class="chip red-chip"></div>
+      <div class="chip blue-chip"></div>
+      <div class="chip green-chip"></div>
+    </div>
+  </div>
+  <label for="shuffle-next-player" class="button-label">Continue</label>
+</div>
+
+<div class="scene" id="scene-shuffling-dealer">
+  <div class="narrator-box">Shuffling the deck...</div>
+  <div class="table">
+    <div class="deck-area">
+      <div class="shuffle-card card-back"></div>
+      <div class="shuffle-card card-back"></div>
+      <div class="shuffle-card card-back"></div>
+      <div class="shuffle-card card-back"></div>
+      <div class="shuffle-card card-back"></div>
+      <div class="burn-card"></div>
+    </div>
+    <div class="chips-area">
+      <div class="chip red-chip"></div>
+      <div class="chip blue-chip"></div>
+      <div class="chip green-chip"></div>
+    </div>
+  </div>
+  <label for="shuffle-next-dealer" class="button-label">Continue</label>
+</div>
+
+<!-- SCENE 3: DEALING -->
+<div class="scene" id="scene-dealing-player">
+  <div class="narrator-box">Dealing...</div>
+  <div class="table">
+    <div class="dealing-area">
+      <div class="dealer-side">
+        <div class="dealt-card card-glow">K♠</div>
+        <div class="dealt-card card-back"></div>
+      </div>
+      <div class="player-side active-side">
+        <div class="dealt-card card-glow">A♥</div>
+        <div class="dealt-card card-glow">9♦</div>
+      </div>
+    </div>
+  </div>
+  <label for="dealing-next-player" class="button-label">Continue</label>
+</div>
+
+<div class="scene" id="scene-dealing-dealer">
+  <div class="narrator-box">Dealing...</div>
+  <div class="table">
+    <div class="dealing-area">
+      <div class="dealer-side active-side">
+        <div class="dealt-card card-glow">Q♣</div>
+        <div class="dealt-card card-back"></div>
+      </div>
+      <div class="player-side">
+        <div class="dealt-card">8♠</div>
+        <div class="dealt-card">7♥</div>
+      </div>
+    </div>
+  </div>
+  <label for="dealing-next-dealer" class="button-label">Continue</label>
+</div>
+
+<!-- SCENE 4: DECISION -->
+<div class="scene" id="scene-decision-player">
+  <div class="narrator-box">Your move</div>
+  <div class="table">
+    <div class="dealing-area">
+      <div class="dealer-side">
+        <div class="dealt-card">K♠</div>
+        <div class="dealt-card card-back"></div>
+      </div>
+      <div class="player-side active-side">
+        <div class="dealt-card card-glow">A♥</div>
+        <div class="dealt-card card-glow">9♦</div>
+      </div>
+    </div>
+  </div>
+  <div class="decision-buttons">
+    <label for="decision-hit-player" class="decision-label">Hit</label>
+    <label for="decision-stand-player" class="decision-label">Stand</label>
+  </div>
+</div>
+
+<div class="scene" id="scene-decision-dealer">
+  <div class="narrator-box">Dealer's move</div>
+  <div class="table">
+    <div class="dealing-area">
+      <div class="dealer-side active-side">
+        <div class="dealt-card card-glow">Q♣</div>
+        <div class="dealt-card card-back"></div>
+      </div>
+      <div class="player-side">
+        <div class="dealt-card">8♠</div>
+        <div class="dealt-card">7♥</div>
+      </div>
+    </div>
+  </div>
+  <div class="decision-buttons">
+    <label for="decision-hit-dealer" class="decision-label">Hit</label>
+    <label for="decision-stand-dealer" class="decision-label">Stand</label>
+  </div>
+</div>
+
+<!-- SCENE 5: RESULT -->
+<div class="scene" id="scene-result-player-hit">
+  <div class="narrator-box">Revealing cards...</div>
+  <div class="table result-table win">
+    <div class="dealing-area">
+      <div class="dealer-side">
+        <div class="dealt-card flipped">10♠</div>
+        <div class="dealt-card flipped">7♦</div>
+      </div>
+      <div class="player-side active-side">
+        <div class="dealt-card">A♥</div>
+        <div class="dealt-card">9♦</div>
+      </div>
+    </div>
+    <div class="result-text">You Win!</div>
+  </div>
+  <label for="result-next-player-hit" class="button-label">Continue</label>
+</div>
+
+<div class="scene" id="scene-result-player-stand">
+  <div class="narrator-box">Revealing cards...</div>
+  <div class="table result-table lose">
+    <div class="dealing-area">
+      <div class="dealer-side active-side">
+        <div class="dealt-card flipped">Q♣</div>
+        <div class="dealt-card flipped">9♠</div>
+      </div>
+      <div class="player-side">
+        <div class="dealt-card">A♥</div>
+        <div class="dealt-card">9♦</div>
+      </div>
+    </div>
+    <div class="result-text">You Lose!</div>
+  </div>
+  <label for="result-next-player-stand" class="button-label">Continue</label>
+</div>
+
+<div class="scene" id="scene-result-dealer-hit">
+  <div class="narrator-box">Revealing cards...</div>
+  <div class="table result-table lose">
+    <div class="dealing-area">
+      <div class="dealer-side active-side">
+        <div class="dealt-card flipped">K♦</div>
+        <div class="dealt-card flipped">8♠</div>
+      </div>
+      <div class="player-side">
+        <div class="dealt-card">8♠</div>
+        <div class="dealt-card">7♥</div>
+      </div>
+    </div>
+    <div class="result-text">Dealer Wins!</div>
+  </div>
+  <label for="result-next-dealer-hit" class="button-label">Continue</label>
+</div>
+
+<div class="scene" id="scene-result-dealer-stand">
+  <div class="narrator-box">Revealing cards...</div>
+  <div class="table result-table win">
+    <div class="dealing-area">
+      <div class="dealer-side active-side">
+        <div class="dealt-card flipped">10♣</div>
+        <div class="dealt-card flipped">7♦</div>
+      </div>
+      <div class="player-side">
+        <div class="dealt-card">8♠</div>
+        <div class="dealt-card">7♥</div>
+      </div>
+    </div>
+    <div class="result-text">You Win!</div>
+  </div>
+  <label for="result-next-dealer-stand" class="button-label">Continue</label>
+</div>
+
+<!-- SCENE 6: END -->
+<div class="scene" id="scene-end">
+  <div class="narrator-box">Round Complete</div>
+  <div class="table end-table">
+    <div class="cards-exit">
+      <div class="end-card"></div>
+      <div class="end-card"></div>
+      <div class="end-card"></div>
+    </div>
+    <div class="chips-exit">
+      <div class="end-chip"></div>
+      <div class="end-chip"></div>
+    </div>
+    <a href="" class="play-again-label">Play Again?</a>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

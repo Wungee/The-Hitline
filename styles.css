@@ -1,0 +1,236 @@
+/* ===========================
+   GLOBAL / BASE
+=========================== */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Georgia', serif;
+  background: radial-gradient(ellipse at center, #1a4d2e 0%, #0d2818 100%);
+  color: #f4e4c1;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+input[type="radio"], input[type="checkbox"] {
+  position:absolute; opacity:0; pointer-events:none;
+}
+.game-container {
+  width:100%; min-height:100vh;
+  position:relative; display:flex; align-items:center; justify-content:center;
+}
+
+/* ===========================
+   SCENE BASE
+=========================== */
+.scene {
+  position:absolute; width:100%; height:100vh; display:none; flex-direction:column;
+  align-items:center; justify-content:center; opacity:0; pointer-events:none;
+  transition: opacity .6s ease;
+}
+#scene-intro { display:flex; opacity:1; pointer-events:all; }
+
+.title {
+  font-size:4rem; color:#ffd700; text-shadow:0 0 20px rgba(255,215,0,.6);
+  margin-bottom:2rem; animation: titleSlide 1s ease-out;
+}
+@keyframes titleSlide { from {transform:translateY(-40px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+
+.role-selection { display:flex; gap:2rem; }
+.role-label {
+  display:block; padding:1.2rem 2rem; background:linear-gradient(145deg,#2d5a3d,#1a4d2e);
+  border:3px solid #ffd700; border-radius:12px; cursor:pointer; font-size:1.25rem;
+  color:#f4e4c1; box-shadow: 0 4px 12px rgba(0,0,0,.4);
+}
+.role-label:hover { transform:translateY(-4px); box-shadow:0 0 25px rgba(255,215,0,.45); }
+
+/* ===========================
+   TABLE
+=========================== */
+.table {
+  width:80%; max-width:1000px; height:500px;
+  background: radial-gradient(ellipse at center,#2d5a3d 0%,#1a4d2e 100%);
+  border-radius:200px; border:8px solid #8b6914; position:relative;
+  box-shadow:0 10px 50px rgba(0,0,0,.5), inset 0 2px 20px rgba(0,0,0,.25);
+}
+.narrator-box {
+  position:absolute; top:5%; left:50%; transform:translateX(-50%);
+  background:rgba(0,0,0,.85); border:2px solid #ffd700; border-radius:8px;
+  padding:.9rem 1.2rem; font-size:1rem; z-index:200; text-align:center;
+  max-width:70%;
+}
+.dealing-area { position:relative; width:100%; height:100%; }
+.dealer-side { position:absolute; top:14%; left:50%; transform:translateX(-50%); display:flex; gap:1rem; }
+.player-side { position:absolute; bottom:18%; left:50%; transform:translateX(-50%); display:flex; gap:1rem; }
+.active-side { animation: sideGlow 2s ease-in-out infinite; }
+@keyframes sideGlow { 0%,100%{ filter:brightness(1); } 50%{ filter:brightness(1.25); } }
+
+/* ===========================
+   CARDS
+=========================== */
+.dealt-card, .shuffle-card, .end-card, .burn-card {
+  width:70px; height:100px; border-radius:8px; border:2px solid #333;
+  display:flex; align-items:center; justify-content:center; font-size:2rem;
+  box-shadow:0 6px 12px rgba(0,0,0,.35);
+  background:#fff;
+}
+.card-glow { animation: cardGlow 2s ease-in-out infinite; }
+@keyframes cardGlow { 0%,100%{ box-shadow:0 6px 12px rgba(0,0,0,.3); } 50%{ box-shadow:0 0 28px rgba(255,215,0,.85); } }
+
+.card-back {
+  background: repeating-linear-gradient(
+    45deg,
+    #cc0000,
+    #cc0000 10px,
+    #000 10px,
+    #000 20px
+  );
+}
+
+/* flipped card */
+.dealt-card.flipped { transform: rotateY(180deg); transition: transform .6s ease; }
+
+/* ===========================
+   BUTTONS
+=========================== */
+.button-label, .decision-label, .play-again-label {
+  padding:.9rem 2rem; background:linear-gradient(145deg,#ffd700,#ffed4e);
+  color:#1a4d2e; font-weight:700; border-radius:12px; cursor:pointer;
+  display:inline-block; box-shadow:0 6px 14px rgba(0,0,0,.35); text-align:center;
+}
+.button-label:hover, .decision-label:hover, .play-again-label:hover { transform:scale(1.05); }
+
+/* decision buttons container */
+.decision-buttons { position:absolute; bottom:10%; display:flex; gap:1.2rem; }
+.decision-label { background:linear-gradient(145deg,#2d5a3d,#1a4d2e); border:3px solid #ffd700; color:#f4e4c1; font-size:1.1rem; box-shadow:0 4px 12px rgba(0,0,0,.4); }
+
+/* ===========================
+   SHUFFLE ANIMATION
+=========================== */
+.deck-area {
+  position:relative; top:28%; display:flex; justify-content:center; align-items:center;
+  gap:10px; perspective:900px; height:160px;
+}
+.shuffle-card {
+  animation: shuffleFan 1.2s ease-in-out forwards, shuffleStack 1s 1.3s ease-in-out forwards;
+}
+.shuffle-card:nth-child(1){ --angle:-30deg; --x:-120px; }
+.shuffle-card:nth-child(2){ --angle:-20deg; --x:-80px; }
+.shuffle-card:nth-child(3){ --angle:-10deg; --x:-40px; }
+.shuffle-card:nth-child(4){ --angle:10deg; --x:40px; }
+.shuffle-card:nth-child(5){ --angle:20deg; --x:80px; }
+.shuffle-card:nth-child(6){ --angle:30deg; --x:120px; }
+
+@keyframes shuffleFan {
+  0% { transform: translateX(0px) rotate(0deg) translateY(20px); opacity:0; }
+  50% { transform: translateX(var(--x)) rotate(var(--angle)) translateY(-10px); opacity:1; }
+  100% { transform: translateX(var(--x)) rotate(var(--angle)) translateY(-10px); opacity:1; }
+}
+@keyframes shuffleStack { 0% { transform: translateX(var(--x)) rotate(var(--angle)); } 100% { transform: translateX(0) rotate(0deg); } }
+
+/* burn card */
+.burn-card {
+  width:70px; height:100px; border-radius:8px; border:2px solid #333;
+  background: repeating-linear-gradient(45deg,#cc0000,#cc0000 10px,#000 10px,#000 20px);
+  position:absolute; top:40%; left:50%; transform:translateX(-50%); opacity:0;
+  animation: burnSlide 1s 1.8s ease-out forwards;
+}
+@keyframes burnSlide { from{opacity:0;} to{opacity:1; transform:translateX(220px) translateY(36px) rotate(24deg);} }
+
+/* ===========================
+   CHIPS
+=========================== */
+.chips-area { position:absolute; bottom:12%; left:50%; transform:translateX(-50%); display:flex; gap:12px; }
+.chip {
+  width:48px; height:48px; border-radius:50%;
+  background: radial-gradient(circle at 50% 50%, #fff, #aaa);
+  border:2px solid #000; box-shadow:0 3px 6px rgba(0,0,0,.4);
+  opacity:0; transform:translateY(20px);
+}
+.red-chip { background: radial-gradient(circle at 50% 50%, #ff5a5a, #a30000); animation: chipIn .9s .9s forwards;}
+.blue-chip { background: radial-gradient(circle at 50% 50%, #5a9eff, #003a8c); animation: chipIn .9s 1.05s forwards;}
+.green-chip { background: radial-gradient(circle at 50% 50%, #5aff7a, #007f34); animation: chipIn .9s 1.2s forwards;}
+@keyframes chipIn { to{ opacity:1; transform:translateY(0); } }
+
+/* ===========================
+   RESULT TEXT
+=========================== */
+.result-text {
+  position:absolute; top:60%; left:50%; transform:translateX(-50%);
+  font-size:2rem; text-shadow:0 0 10px rgba(0,0,0,.8);
+  opacity:0; animation: resultFade 1s 1s forwards;
+}
+@keyframes resultFade { from{opacity:0; transform:translate(-50%,10px);} to{opacity:1; transform:translate(-50%,0);} }
+.result-table.win { border:3px solid #4CAF50; }
+.result-table.lose { border:3px solid #F44336; }
+.result-table.draw { border:3px solid #FFD700; }
+
+/* ===========================
+   END SCENE
+=========================== */
+.end-table { display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1.2rem; height:100%; }
+.cards-exit, .chips-exit { display:flex; gap:12px; }
+.end-card { animation: slideOff 2s ease-in-out forwards; }
+.end-card:nth-child(1){ animation-delay:.2s; }
+.end-card:nth-child(2){ animation-delay:.35s; }
+.end-card:nth-child(3){ animation-delay:.5s; }
+@keyframes slideOff { from{opacity:1; transform:translateY(0);} to{opacity:0; transform:translateY(-220px) rotate(18deg);} }
+.end-chip { width:48px; height:48px; border-radius:50%; background:gold; box-shadow:0 0 18px rgba(255,215,0,.8); }
+.chips-exit { animation: chipsBack 2s .3s forwards; }
+@keyframes chipsBack { from{opacity:1; transform:translateY(0);} to{opacity:0; transform:translateY(100px);} }
+
+/* Play again */
+.play-again-label {
+  display:inline-block; padding:.9rem 1.6rem; background:linear-gradient(145deg,#ffd700,#ffed4e);
+  border-radius:12px; color:#1a4d2e; font-weight:700; text-decoration:none; box-shadow:0 6px 16px rgba(0,0,0,.35);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.06); } }
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media(max-width:768px){
+  .table{width:95%; height:420px;}
+  .dealt-card,.shuffle-card,.end-card,.burn-card{width:60px;height:90px;font-size:1.5rem;}
+  .narrator-box{font-size:.9rem; padding:.6rem 1rem;}
+  .decision-label{padding:.8rem 1.2rem;font-size:1rem;}
+}
+
+/* ===========================
+   SCENE FLOW LOGIC
+=========================== */
+/* Show shuffle scene after role selected */
+#role-player:checked ~ .game-container #scene-shuffling-player { display:flex; opacity:1; pointer-events:all; }
+#role-dealer:checked ~ .game-container #scene-shuffling-dealer { display:flex; opacity:1; pointer-events:all; }
+#role-player:checked ~ .game-container #scene-intro,
+#role-dealer:checked ~ .game-container #scene-intro { display:none; opacity:0; pointer-events:none; }
+
+/* Show dealing scene after shuffle continue */
+#shuffle-next-player:checked ~ .game-container #scene-dealing-player { display:flex; opacity:1; pointer-events:all; }
+#shuffle-next-dealer:checked ~ .game-container #scene-dealing-dealer { display:flex; opacity:1; pointer-events:all; }
+#shuffle-next-player:checked ~ .game-container #scene-shuffling-player,
+#shuffle-next-dealer:checked ~ .game-container #scene-shuffling-dealer { display:none; opacity:0; pointer-events:none; }
+
+/* Show decision scene after dealing continue */
+#dealing-next-player:checked ~ .game-container #scene-decision-player { display:flex; opacity:1; pointer-events:all; }
+#dealing-next-dealer:checked ~ .game-container #scene-decision-dealer { display:flex; opacity:1; pointer-events:all; }
+#dealing-next-player:checked ~ .game-container #scene-dealing-player,
+#dealing-next-dealer:checked ~ .game-container #scene-dealing-dealer { display:none; opacity:0; pointer-events:none; }
+
+/* Show result scene after decision */
+#decision-hit-player:checked ~ .game-container #scene-result-player-hit { display:flex; opacity:1; pointer-events:all; }
+#decision-stand-player:checked ~ .game-container #scene-result-player-stand { display:flex; opacity:1; pointer-events:all; }
+#decision-hit-dealer:checked ~ .game-container #scene-result-dealer-hit { display:flex; opacity:1; pointer-events:all; }
+#decision-stand-dealer:checked ~ .game-container #scene-result-dealer-stand { display:flex; opacity:1; pointer-events:all; }
+#decision-hit-player:checked ~ .game-container #scene-decision-player,
+#decision-stand-player:checked ~ .game-container #scene-decision-player,
+#decision-hit-dealer:checked ~ .game-container #scene-decision-dealer,
+#decision-stand-dealer:checked ~ .game-container #scene-decision-dealer { display:none; opacity:0; pointer-events:none; }
+
+/* Show end scene after result continue */
+#result-next-player-hit:checked ~ .game-container #scene-end,
+#result-next-player-stand:checked ~ .game-container #scene-end,
+#result-next-dealer-hit:checked ~ .game-container #scene-end,
+#result-next-dealer-stand:checked ~ .game-container #scene-end { display:flex; opacity:1; pointer-events:all; }
+#result-next-player-hit:checked ~ .game-container #scene-result-player-hit,
+#result-next-player-stand:checked ~ .game-container #scene-result-player-stand,
+#result-next-dealer-hit:checked ~ .game-container #scene-result-dealer-hit,
+#result-next-dealer-stand:checked ~ .game-container #scene-result-dealer-stand { display:none; opacity:0; pointer-events:none; }
