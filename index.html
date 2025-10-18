@@ -40,7 +40,10 @@
 
 <!-- SCENE 2: SHUFFLE -->
 <div class="scene" id="scene-shuffling-player">
-  <div class="narrator-box">Shuffling the deck...</div>
+<div class="narrator-box">
+  You arrive back into the casino for the first time in a long time. " This time it'll be different", you mumble under your breath
+  as you take your seat. The dealer eyeing you down as he shuffles the cards....
+</div>
   <div class="table">
     <div class="deck-area">
       <div class="shuffle-card card-back"></div>
@@ -60,8 +63,12 @@
 </div>
 
 <div class="scene" id="scene-shuffling-dealer">
-  <div class="narrator-box">Shuffling the deck...</div>
-  <div class="table">
+<div class="narrator-box">
+  You stand behind the felt, surveying your domain. 
+  The deck feels familiar in your hands as you execute the perfect riffle shuffle. 
+  Another player sits down, a sense of despair lingers in their eyes. "house alwwwayysss wins", you 
+  think to yourself
+</div>  <div class="table">
     <div class="deck-area">
       <div class="shuffle-card card-back"></div>
       <div class="shuffle-card card-back"></div>
@@ -81,8 +88,11 @@
 
 <!-- SCENE 3: DEALING -->
 <div class="scene" id="scene-dealing-player">
-  <div class="narrator-box">Dealing...</div>
-  <div class="table">
+<div class="narrator-box">
+  You watch anxiously as the dealer meticulously moves the cards through his fingers. In a second, 
+  he slides the cards towards you. They land in front of you and you flip them over. Two for you—an Ace and a Nine. Twenty. A strong hand.
+   The dealer shows a King, their second card face down, concealing fate itself. You glance at your cards again. "Lets do this", you think to yourself.
+</div>  <div class="table">
     <div class="dealing-area">
       <div class="dealer-side">
         <div class="dealt-card card-glow">K♠</div>
@@ -98,8 +108,12 @@
 </div>
 
 <div class="scene" id="scene-dealing-dealer">
-  <div class="narrator-box">Dealing...</div>
-  <div class="table">
+<div class="narrator-box">
+  You deal with precision. Two cards each. 
+  The player receives an Eight and a Seven—fifteen. Weak. 
+  Your Queen stares back at them, intimidating. 
+  Your hidden card? You know what lies beneath. Control. Power. 
+</div>  <div class="table">
     <div class="dealing-area">
       <div class="dealer-side active-side">
         <div class="dealt-card card-glow">Q♣</div>
@@ -116,8 +130,11 @@
 
 <!-- SCENE 4: DECISION -->
 <div class="scene" id="scene-decision-player">
-  <div class="narrator-box">Your move</div>
-  <div class="table">
+<div class="narrator-box">
+  Twenty. So close to twenty-one. The dealer's King looms large. 
+  Do they have another face card hidden? Or something smaller? Your heart pounds. 
+  Hit and risk everything, or stand and trust your hand? The choice echoes with consequence. What will you do?
+</div>  <div class="table">
     <div class="dealing-area">
       <div class="dealer-side">
         <div class="dealt-card">K♠</div>
@@ -136,7 +153,12 @@
 </div>
 
 <div class="scene" id="scene-decision-dealer">
-  <div class="narrator-box">Dealer's move</div>
+<div class="narrator-box">
+  The player shifts nervously—fifteen against your Queen. 
+  You can see the doubt in their eyes. Now comes your decision. 
+  Hit and potentially strengthen your hand, or stand and let the cards speak? 
+  You've played this game a thousand times. Trust your instincts.
+</div>
   <div class="table">
     <div class="dealing-area">
       <div class="dealer-side active-side">
@@ -155,9 +177,14 @@
   </div>
 </div>
 
-<!-- SCENE 5: RESULT -->
+<!-- SCENE 5: RESULT (Player Hit - Win) -->
 <div class="scene" id="scene-result-player-hit">
-  <div class="narrator-box">Revealing cards...</div>
+  <div class="narrator-box">
+    You couldn't resist. "Hit me," you say. But wait—the dealer reveals their cards. 
+    Ten and Seven. Seventeen. Your twenty holds! 
+    The dealer busts as they're forced to draw. Chips slide your way.
+    Victory tastes sweet. Against all odds, you trusted your gut and won.
+  </div>
   <div class="table result-table win">
     <div class="dealing-area">
       <div class="dealer-side">
@@ -175,8 +202,12 @@
 </div>
 
 <div class="scene" id="scene-result-player-stand">
-  <div class="narrator-box">Revealing cards...</div>
-  <div class="table result-table lose">
+<!-- SCENE 5: RESULT (Player Stand - Lose) -->
+<div class="narrator-box">
+  "Stand," you declare with confidence. The dealer flips their hidden card—a Nine. Nineteen. 
+  Your twenty... no wait. You miscounted in the excitement. Your heart sinks as reality crashes down. 
+  The dealer's hand wins. The chips vanish. How could you make such a mistake??????
+</div>  <div class="table result-table lose">
     <div class="dealing-area">
       <div class="dealer-side active-side">
         <div class="dealt-card flipped">Q♣</div>
@@ -193,8 +224,11 @@
 </div>
 
 <div class="scene" id="scene-result-dealer-hit">
-  <div class="narrator-box">Revealing cards...</div>
-  <div class="table result-table lose">
+<div class="narrator-box">
+  You hit. Another card slides over—a Six. Sixteen total. House rules force you to stand. 
+  The player reveals their fifteen. You suppress a smile. Sixteen beats fifteen. 
+  The chips return to the house. Another victory. 
+</div>  <div class="table result-table lose">
     <div class="dealing-area">
       <div class="dealer-side active-side">
         <div class="dealt-card flipped">K♦</div>
@@ -211,8 +245,11 @@
 </div>
 
 <div class="scene" id="scene-result-dealer-stand">
-  <div class="narrator-box">Revealing cards...</div>
-  <div class="table result-table win">
+<div class="narrator-box">
+  You stand, confident in your hand. Time to reveal. Your hidden card flips—a King. 
+  Twenty. The player's fifteen crumbles before you. Chips pulled back to the house, where they belong. 
+  You nod professionally, but deep down inside, you knew they never stood a chance.
+</div>  <div class="table result-table win">
     <div class="dealing-area">
       <div class="dealer-side active-side">
         <div class="dealt-card flipped">10♣</div>
@@ -230,8 +267,12 @@
 
 <!-- SCENE 6: END -->
 <div class="scene" id="scene-end">
-  <div class="narrator-box">Round Complete</div>
-  <div class="table end-table">
+<div class="narrator-box">
+  The cards are cleared. Chips are counted. The felt waits silently for the next hand, the next story,
+   the next moment where fortune hangs in the balance. 
+   In this game, there are no permanent victories or defeats—only the eternal dance between risk and reward. 
+   Will you step back up to the line?
+</div>  <div class="table end-table">
     <div class="cards-exit">
       <div class="end-card"></div>
       <div class="end-card"></div>

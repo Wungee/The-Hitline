@@ -150,14 +150,58 @@ input[type="radio"], input[type="checkbox"] {
 @keyframes chipIn { to{ opacity:1; transform:translateY(0); } }
 
 /* ===========================
-   RESULT TEXT
+   RESULT TEXT - UPDATED & CENTERED
 =========================== */
 .result-text {
-  position:absolute; top:60%; left:50%; transform:translateX(-50%);
-  font-size:2rem; text-shadow:0 0 10px rgba(0,0,0,.8);
-  opacity:0; animation: resultFade 1s 1s forwards;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 4px 8px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  animation: resultFade 1s 1s forwards;
+  z-index: 500;
+  pointer-events: none;
+  color: #ffd700;
+  text-align: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 15px;
+  border: 3px solid #ffd700;
 }
-@keyframes resultFade { from{opacity:0; transform:translate(-50%,10px);} to{opacity:1; transform:translate(-50%,0);} }
+
+/* Color variations for different outcomes */
+.result-text.win {
+  color: #00ff00;
+  border-color: #00ff00;
+  text-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.result-text.lose {
+  color: #ff0000;
+  border-color: #ff0000;
+  text-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.result-text.draw {
+  color: #ffff00;
+  border-color: #ffff00;
+  text-shadow: 0 0 20px rgba(255, 255, 0, 0.8), 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes resultFade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .result-table.win { border:3px solid #4CAF50; }
 .result-table.lose { border:3px solid #F44336; }
 .result-table.draw { border:3px solid #FFD700; }
@@ -192,6 +236,7 @@ input[type="radio"], input[type="checkbox"] {
   .dealt-card,.shuffle-card,.end-card,.burn-card{width:60px;height:90px;font-size:1.5rem;}
   .narrator-box{font-size:.9rem; padding:.6rem 1rem;}
   .decision-label{padding:.8rem 1.2rem;font-size:1rem;}
+  .result-text{font-size:2rem; padding:.8rem 1.5rem;}
 }
 
 /* ===========================
@@ -234,3 +279,121 @@ input[type="radio"], input[type="checkbox"] {
 #result-next-player-stand:checked ~ .game-container #scene-result-player-stand,
 #result-next-dealer-hit:checked ~ .game-container #scene-result-dealer-hit,
 #result-next-dealer-stand:checked ~ .game-container #scene-result-dealer-stand { display:none; opacity:0; pointer-events:none; }
+
+
+/* ===========================
+ 3D ENHANCEMENTS
+=========================== */
+
+/* Enable 3D space on containers only */
+.table,
+.dealing-area,
+.deck-area {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Enable 3D transforms on cards */
+.dealt-card,
+.shuffle-card,
+.end-card,
+.burn-card {
+  transform-style: preserve-3d;
+}
+
+/* Add 3D depth to existing card dealing animation */
+@keyframes dealCard {
+  from {
+    transform: translateY(-300px) rotateY(-25deg) translateZ(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) rotateY(0deg) translateZ(0);
+    opacity: 1;
+  }
+}
+
+/* Add 3D to existing shuffle animations */
+@keyframes shuffleFan {
+  0% {
+    transform: translateX(0px) rotate(0deg) translateY(20px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(var(--x)) rotate(var(--angle)) translateY(-10px) translateZ(40px) rotateY(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(var(--x)) rotate(var(--angle)) translateY(-10px) translateZ(20px) rotateY(5deg);
+    opacity: 1;
+  }
+}
+
+@keyframes shuffleStack {
+  from {
+    transform: translateX(var(--x)) rotate(var(--angle)) translateZ(20px) rotateY(5deg);
+  }
+  to {
+    transform: translateX(0) rotate(0deg) translateZ(0) rotateY(0deg);
+  }
+}
+
+/* Add 3D flip to flipped cards */
+.dealt-card.flipped {
+  animation: flip3D 1s ease-in-out 0.5s forwards;
+}
+
+@keyframes flip3D {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(90deg) translateZ(30px) scale(1.1); }
+  100% { transform: rotateY(180deg); }
+}
+
+/* Add 3D to burn card */
+@keyframes burnSlide {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(220px) translateY(36px) rotate(24deg) rotateY(-12deg) translateZ(15px);
+  }
+}
+
+/* Add 3D to end scene cards */
+@keyframes slideOff {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-220px) rotate(18deg) rotateY(40deg) translateZ(-80px);
+  }
+}
+
+/* Add subtle 3D hover to decision buttons */
+.decision-label:hover {
+  transform: translateY(-3px) translateZ(12px);
+}
+
+/* Mobile: disable 3D on smaller screens for performance */
+@media (max-width: 768px) {
+  .table,
+  .dealing-area,
+  .deck-area {
+    perspective: none;
+  }
+  
+  /* Simplify animations back to 2D */
+  @keyframes dealCard {
+    from { transform: translateY(-300px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  @keyframes shuffleFan {
+    0% { transform: translateX(0px) rotate(0deg) translateY(20px); opacity: 0; }
+    50% { transform: translateX(var(--x)) rotate(var(--angle)) translateY(-10px); opacity: 1; }
+    100% { transform: translateX(var(--x)) rotate(var(--angle)) translateY(-10px); opacity: 1; }
+  }
+}
